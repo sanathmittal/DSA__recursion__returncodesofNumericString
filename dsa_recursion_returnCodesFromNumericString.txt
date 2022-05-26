@@ -1,0 +1,43 @@
+#include <iostream>
+#include<cstdlib>
+#include <string>
+using namespace std;
+
+char sta(string num){
+  int n= stoi(num);
+  char ap=char(96 +n);
+  return ap;
+}
+
+
+int returns (string input ,string op[] ,int s){
+    if(input.length()<=0){
+        // op[0]=" ";
+        return s;
+    }
+string temp =    op[s];
+op[s] = temp + sta(input.substr(0,1)) ; 
+
+s = returns(input.substr(1),op,s);
+
+if(stoi(input.substr(0,2)) < 27 && input.length()>1){
+    s++;
+      op[s] =  temp + sta(input.substr(0,2))  ;
+      s= returns(input.substr(2),op,s);
+      
+}
+    return s;
+}
+
+int main()
+{
+ string input;
+ cin>>input;
+ string *op=new string[1000];
+ int count =returns(input,op,0);
+ for(int i=0;i<=count;i++){
+     cout<<op[i]<<endl;
+ }
+
+    return 0;
+}
